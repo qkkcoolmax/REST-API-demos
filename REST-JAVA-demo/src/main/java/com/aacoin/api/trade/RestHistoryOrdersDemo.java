@@ -1,3 +1,6 @@
+package com.aacoin.api.trade;
+
+import com.aacoin.api.utils.Utils;
 import com.sun.deploy.util.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -15,12 +18,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 撤单
+ *
  */
-public class RestCancelDemo {
+public class RestHistoryOrdersDemo {
     public static void main(String[] args) throws IOException {
 
-        final String url = "https://api.aacoin.com/v1/order/cancel";
+        final String url = "https://api.aacoin.com/v1/order/historyOrders";
 
         final String secretKey = "xx";
         final String accessKey = "xx";
@@ -30,9 +33,13 @@ public class RestCancelDemo {
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("accessKey", accessKey));
-        params.add(new BasicNameValuePair("orderId", "xx"));
+        params.add(new BasicNameValuePair("symbol", "xx"));
+        params.add(new BasicNameValuePair("type", "xx"));
+
         //对参数进行排序
         params.sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
+
+
         List<String> paramStringList = params.stream().map(e -> e.getName() + "=" + e.getValue()).collect(Collectors.toList());
         String paramString = StringUtils.join(paramStringList, "&");
         String actualSignature = Utils.encodeHmacSHA256(paramString, secretKey);
@@ -50,4 +57,5 @@ public class RestCancelDemo {
         }
         httpPost.releaseConnection();
     }
+
 }

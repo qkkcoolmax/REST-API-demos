@@ -1,4 +1,8 @@
+package com.aacoin.api.trade;
+
+import com.aacoin.api.utils.Utils;
 import com.sun.deploy.util.StringUtils;
+import org.apache.commons.codec.binary.Hex;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
@@ -9,17 +13,23 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.Key;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RestAccountsDemo {
+public class RestCurrenciesDemo {
     public static void main(String[] args) throws IOException {
-        final String url = "https://api.aacoin.com/v1/account/accounts";
+        final String url = "https://api.aacoin.com/v1/common/currencies";
 
-        final String secretKey = "xxx";
-        final String accessKey = "xxx";
+        final String secretKey = "xx";
+        final String accessKey = "xx";
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(url);
@@ -29,9 +39,9 @@ public class RestAccountsDemo {
 
         //对参数进行排序
         params.sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
+
         List<String> paramStringList = params.stream().map(e -> e.getName() + "=" + e.getValue()).collect(Collectors.toList());
         String paramString = StringUtils.join(paramStringList, "&");
-        //进行签名
         String actualSignature = Utils.encodeHmacSHA256(paramString, secretKey);
         params.add(new BasicNameValuePair("sign", actualSignature));
 

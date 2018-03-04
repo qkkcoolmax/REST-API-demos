@@ -1,3 +1,5 @@
+package com.aacoin.api.utils;
+
 import org.apache.commons.codec.binary.Hex;
 
 import javax.crypto.Mac;

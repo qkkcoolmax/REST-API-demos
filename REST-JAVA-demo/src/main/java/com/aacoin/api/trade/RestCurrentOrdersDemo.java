@@ -1,3 +1,6 @@
+package com.aacoin.api.trade;
+
+import com.aacoin.api.utils.Utils;
 import com.sun.deploy.util.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;

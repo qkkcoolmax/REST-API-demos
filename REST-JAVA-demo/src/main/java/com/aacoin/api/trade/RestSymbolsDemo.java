@@ -1,3 +1,6 @@
+package com.aacoin.api.trade;
+
+import com.aacoin.api.utils.Utils;
 import com.sun.deploy.util.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -14,9 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RestStatementDemo {
+public class RestSymbolsDemo {
     public static void main(String[] args) throws IOException {
-        final String url = "https://api.aacoin.com/v1/account/statement";
+        final String url = "https://api.aacoin.com/v1/common/symbols";
 
         final String secretKey = "xx";
         final String accessKey = "xx";
@@ -26,8 +29,6 @@ public class RestStatementDemo {
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("accessKey", accessKey));
-        params.add(new BasicNameValuePair("accountId", "xx"));
-        params.add(new BasicNameValuePair("limit", "xx"));
 
         //对参数进行排序
         params.sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
@@ -49,4 +50,5 @@ public class RestStatementDemo {
         }
         httpPost.releaseConnection();
     }
+
 }
